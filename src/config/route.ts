@@ -1,15 +1,22 @@
 import team from "../pages/Team.vue";
 import index from "../pages/Index.vue";
 import user from "../pages/User.vue";
-import {createMemoryHistory, createRouter} from "vue-router";
+import Search from "../pages/Search.vue";
+import EditUser from "../pages/EditUser.vue";
 
 const routes = [
-    { path: '/', component: index },
-    { path: '/team', component: team },
-    { path: '/user', component: user },
+    {path: '/', component: index},
+    {path: '/team', component: team},
+    {path: '/user', component: user},
+    {path: '/search', component: Search},
+    {
+        path: '/user/editUser', component: EditUser
+        , query: {
+            editKey: 'editKey',
+            editTitle: 'editTitle',
+            currentValue: 'currentValue',
+        }
+    },
 ]
-const router = createRouter({
-    history: createMemoryHistory(),
-    routes,
-})
-export default router
+
+export default routes
