@@ -9,7 +9,7 @@
       />
     </van-cell-group>
     <div style="margin: 16px;">
-      <van-button round block type="primary" native-type="submit">
+      <van-button round block type="primary" native-type="submit" @click="submitForm">
         提交
       </van-button>
     </div>
@@ -18,9 +18,12 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import {useRoute} from "vue-router";
+import {useRoute, useRouter} from "vue-router";
+import myAnxios from "../plugins/myAnxios.ts";
+import {getCurrentUser} from "../services/user.ts";
+import { showToast } from "vant";
 const route = useRoute();
-
+const router = useRouter();
 // 工具函数：安全提取query中的字符串值（排除null/数组）
 const getQueryStr = (key: string): string => {
   const value = route.query[key];
@@ -37,9 +40,28 @@ const editUser = ref({
 
 
 
-console.log(route)
-console.log(route.query.editKey)
-console.log(route.query.currentValue)
+const submitForm = async (): Promise<void> => {
+  const currentUser = await getCurrentUser();
+  if (!currentUser) {
+    return;
+  }
+  // 提交表单逻辑
+   const response = await myAnxios.post("/user/update",
+       {
+         id: currentUser.id,
+         [editUser.value.editKey]: editUser.value.currentValue
+       }
+   )
+   if ((response as any).code === 0) {
+      // 编辑成功，返回用户详情页
+     showToast('编辑成功');
+      await router.push('/user');
+   } else {
+     showToast('编辑失败');
+   }
+  console.log(response);
+}
+
 
 </script>
 
