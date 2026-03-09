@@ -25,11 +25,14 @@
       v-model:main-active-index="activeIndex"
       :items="tags"
   />
+    <van-button style="width: 50%;margin: 16px " type="primary" @click="onSearchUser">搜索</van-button>
 
 </template>
 
 <script setup lang="ts">
 import {ref} from 'vue';
+import {useRouter} from "vue-router";
+const router = useRouter();
 const originTags = [
   {
     text: '性别',
@@ -39,10 +42,11 @@ const originTags = [
     ],
   },
   {
-    text: '年龄',
+    text: '学习经历',
     children: [
-      {text: '18岁以下', id: '18岁以下'},
-      {text: '18岁以上', id: '18岁以上'},
+      {text: 'java', id: 'java'},
+      {text: 'javascript', id: 'javascript'},
+      {text: 'typescript', id: 'typescript'},
     ],
   },
 ];
@@ -68,7 +72,7 @@ const onSearch = () => {
 };
 
 const onCancel = () => {
-  SearchText.value = '';
+  activeIds.value = [];
   tags.value = originTags;
 };
 
@@ -79,6 +83,16 @@ const close = (tags: string) => {
 const activeIds = ref([]);
 const activeIndex = ref(0);
 
+// 搜索用户
+const onSearchUser = () => {
+
+  router.push({
+    path: '/searchResult',
+    query: {
+      tags: activeIds.value
+    }
+  });
+};
 
 
 </script>
