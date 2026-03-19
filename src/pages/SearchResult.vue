@@ -1,7 +1,4 @@
 <template>
-  <!--{{-->
-  <!--    JSON.stringify(route.query)-->
-  <!--  }}-->
   <van-card v-if="userList.length > 0"
       v-for="user in userList"
       :desc="user.profile || '暂无介绍'"
@@ -30,24 +27,25 @@ import type {UserType} from "../models/user";
 const route = useRoute()
 const {tags} = route.query
 
-
 const userList = ref<UserType[]>([])
 
 onMounted(async () => {
-  const userResponse = await myaniox.get('/user/search/tags', {
+  const response = await myaniox.get('/user/search/tags', {
     params: {
       tagNameList: tags
     },
     paramsSerializer: params => qs.stringify(params, {indices: false})
-  }).then(
-      (response) => {
-        return response.data?.data;
-      }
-  )
+  })
+  console.log(response);
+  const userResponse = response.data || [];
   if (userResponse) {
     userResponse.forEach((user: UserType) => {
-      user.tags = JSON.parse(user.tags);
+      if (user.tags) {
+        user.tags = JSON.parse(user.tags);
+        console.log(user.tags);
+      }
     })
+
     userList.value = userResponse;
   }
 })
