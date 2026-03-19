@@ -47,6 +47,7 @@ const originTags = [
       {text: 'java', id: 'java'},
       {text: 'javascript', id: 'javascript'},
       {text: 'typescript', id: 'typescript'},
+      {text: 'Python', id: 'Python'},
     ],
   },
 ];

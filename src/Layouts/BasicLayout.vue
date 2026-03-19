@@ -42,4 +42,7 @@ const onClickSearch = () => {
 </script>
 
 <style scoped>
+#content {
+  padding-button : 100px ;
+}
 </style>

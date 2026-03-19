@@ -5,6 +5,8 @@ import Search from "../pages/Search.vue";
 import EditUser from "../pages/EditUser.vue";
 import SearchResult from "../pages/SearchResult.vue";
 import UserLogin from "../pages/UserLogin.vue";
+import AddTeam from "../pages/AddTeam.vue";
+
 
 const routes = [
     {path: '/', component: index},
@@ -14,6 +16,7 @@ const routes = [
     {path: '/user/editUser', component: EditUser},
     {path: '/login', component: UserLogin},
     {path: '/searchResult', component: SearchResult},
+    {path: '/team/add', component: AddTeam},
 ]
 
 export default routes
