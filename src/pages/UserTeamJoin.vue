@@ -1,7 +1,6 @@
 <template>
   <div id="team">
     <van-search v-model="seacrhText" placeholder="请输入要搜索的队伍" @search="onSearch(seacrhText)"/>
-    <van-button type="primary" @click="doJoinTeam">创建队伍</van-button>
     <team-card-list :teamList="teamlist"/>
     <van-empty v-if="teamlist?.length < 1" description="暂无队伍"/>
   </div>
@@ -23,7 +22,7 @@ const doJoinTeam = () => {
   router.push('/team/add');
 }
 const listTeam = async (val = "") => {
-  const res = await myaniox.get("/team/list",
+  const res = await myaniox.get("/team/list/JoinTeam",
       {
         params: {
           searchText: val,
