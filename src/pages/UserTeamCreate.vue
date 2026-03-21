@@ -23,7 +23,7 @@ const doJoinTeam = () => {
   router.push('/team/add');
 }
 const listTeam = async (val = "") => {
-  const res = await myaniox.get("/team/list",
+  const res = await myaniox.get("/team/list/myTeam",
       {
         params: {
           searchText: val,
